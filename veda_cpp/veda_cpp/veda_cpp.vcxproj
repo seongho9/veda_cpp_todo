@@ -127,8 +127,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DataManage.h" />
+    <ClInclude Include="DataVisualConsole.h" />
     <ClInclude Include="Todo.h" />
+    <ClInclude Include="TodoRepo.h" />
     <ClInclude Include="UserTodo.h" />
+    <ClInclude Include="UserTodoConverter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DataManage.cpp" />
+    <ClCompile Include="DataVisualImplement.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Todo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
