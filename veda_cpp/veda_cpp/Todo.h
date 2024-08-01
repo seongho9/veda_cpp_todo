@@ -14,21 +14,27 @@ class Todo
 
 	bool isDone;
 	bool isFin;
-
+public:
+	Todo() = default;
+	Todo(unsigned int id,
+		std::string userName, std::string content,
+		std::string insertDate, std::string dueDate,
+		bool isDone, bool isFin);
 	void setId(unsigned int id);
 	void setUserName(std::string userName);
 	void setContent(std::string content);
-	void setinsertDate(std::string date);
-	void setdueDate(std::string date);
+	void setInsertDate(std::string date);
+	void setDueDate(std::string date);
 	void setIsDone(bool isDone);
 	void setIsFin(bool isFin);
 
-	unsigned int getId();
-	std::string getUserName();
-	std::string getContent();
-	std::string getInsertDate();
-	std::string getDueDate();
-	bool getIsDone();
-	bool getIsFin();
+	unsigned int getId() const;
+	std::string getUserName() const;
+	std::string getContent() const;
+	std::string getInsertDate() const;
+	std::string getDueDate() const;
+	bool getIsDone() const;
+	bool getIsFin() const;
+	std::string toString() const;
 };
 #endif // !__TODO_H
