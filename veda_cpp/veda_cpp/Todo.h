@@ -8,7 +8,6 @@ class Todo
 
 	std::string userName;
 	std::string content;
-
 	std::string insertDate;
 	std::string dueDate;
 

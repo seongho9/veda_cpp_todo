@@ -11,7 +11,7 @@ class UserTodo
 	std::vector<Todo> finishData;
 public:
 
-	UserTodo() = default;
+	UserTodo();
 	UserTodo(std::string userName, std::vector<Todo> data, std::vector<Todo> finish);
 	UserTodo(const UserTodo& obj);
 

@@ -127,13 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="DataManage.h" />
+    <ClInclude Include="DataVisualConsole.h" />
     <ClInclude Include="Todo.h" />
     <ClInclude Include="TodoRepo.h" />
     <ClInclude Include="UserTodo.h" />
     <ClInclude Include="UserTodoConverter.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="DataManage.cpp" />
+    <ClCompile Include="DataVisualImplement.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Todo.cpp" />
     <ClCompile Include="TodoRepoFile.cpp" />
     <ClCompile Include="UserTodo.cpp" />
