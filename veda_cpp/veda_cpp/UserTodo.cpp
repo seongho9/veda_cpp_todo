@@ -2,7 +2,7 @@
 
 #include "UserTodo.h"
 #include <ctime>
-
+#include <iostream>
 using namespace std;
 
 UserTodo::UserTodo(std::string userName, std::vector<Todo> data, std::vector<Todo> finish)
@@ -53,12 +53,13 @@ void UserTodo::moveToFinish(unsigned int id)
 		int y_idx = due.find_first_of('-');
 		int m_idx = due.find_last_of('-');
 
-		int year = stoi(due.substr(0, 4)) - t->tm_year + 1900;
-		int month = stoi(due.substr(y_idx + 1, m_idx - y_idx - 1)) - t->tm_mon + 1;
+		int year = stoi(due.substr(0, 4)) - t->tm_year - 1900;
+		int month = stoi(due.substr(y_idx + 1, m_idx - y_idx - 1)) - (t->tm_mon + 1);
 		int day = stoi(due.substr(m_idx + 1, 2)) - t->tm_mday;
 
-		if (!((year < 0) || (month < 0) || (day < 0))) {
+		if (((year < 0) || (month < 0) || (day < 0))) {
 			todo.setIsFin(true);
+			finishData.push_back(todo);
 		}
 	}
 }
