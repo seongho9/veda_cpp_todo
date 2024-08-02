@@ -139,6 +139,9 @@
     <ClCompile Include="DataVisualImplement.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Todo.cpp" />
+    <ClCompile Include="TodoRepoFile.cpp" />
+    <ClCompile Include="UserTodo.cpp" />
+    <ClCompile Include="UserTodoConverterImpl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

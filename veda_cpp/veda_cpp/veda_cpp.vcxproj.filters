@@ -47,5 +47,14 @@
     <ClCompile Include="Todo.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="TodoRepoFile.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UserTodo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UserTodoConverterImpl.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
