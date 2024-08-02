@@ -4,6 +4,7 @@
 #include <string>
 #include "UserTodo.h"
 #include "TodoRepo.h"
+#include "Todo.h"
 #include "UserTodoConverter.h"
 
 class Datamanage {
@@ -12,13 +13,13 @@ class Datamanage {
 	UserTodoConverter *converter;
 	
 public:
+	Datamanage() = default;
 	Datamanage(TodoRepo* storage, UserTodoConverter* convert);
-	~Datamanage() = default;
-	std::vector<Todo> getUserData(std::string name);
+	~Datamanage();
+	bool getUserData(std::vector<Todo>& res, std::string name);
 	Todo addTodoData(std::string name, Todo data);
-	Todo removeTodoData(std::string name, unsigned int id);
-	Todo modifiyTodoList(std::string name, Todo data, unsigned int id);
-	void showAllUserTodoList(std::string name);
+	bool removeTodoData(std::string name, unsigned int id);
+	/*Todo modifiyTodoList(std::string name, Todo data, unsigned int id);*/
 };
 
 #endif
