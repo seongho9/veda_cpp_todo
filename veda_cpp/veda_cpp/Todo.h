@@ -35,6 +35,5 @@ public:
 	std::string getDueDate() const;
 	bool getIsDone() const;
 	bool getIsFin() const;
-	std::string toString() const;
 };
 #endif // !__TODO_H

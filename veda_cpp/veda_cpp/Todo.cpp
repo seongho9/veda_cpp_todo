@@ -1,5 +1,4 @@
 #include "Todo.h"
-#include <sstream>
 
 using namespace std;
 
@@ -92,15 +91,4 @@ bool Todo::getIsDone() const
 bool Todo::getIsFin() const
 {
 	return this->isFin;
-}
-
-string Todo::toString() const
-{
-	stringstream ss;
-
-	ss << id << "#";
-	ss << userName << "#" << content << "#";
-	ss << insertDate << "#" << dueDate << "#";
-	ss << isDone << "#" << isFin << "$";
-	return ss.str();
 }
