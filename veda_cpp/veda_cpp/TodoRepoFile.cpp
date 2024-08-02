@@ -45,7 +45,14 @@ unsigned int TodoRepoFile::deleteById(unsigned int id)
 void TodoRepoFile::load(vector<Todo>& res)
 {
 	lock.lock();
-	input.open(dir, ios::in | ios::binary);
+	input.open(dir, ios::in | ios::binary );
+	if (!input.is_open()) {
+		output.open(dir, ios::out | ios::binary);
+		output.close();
+		lock.unlock();
+
+		return;
+	}
 	input.seekg(ios::beg);
 	vector<Todo> tmp;
 
