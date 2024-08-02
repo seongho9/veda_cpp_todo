@@ -36,26 +36,20 @@ bool UserTodoConverterImpl::load(map<std::string, UserTodo>& res)
 	
 	for (auto todo : data) {
 
-		vector<Todo> data;
-		vector<Todo> fin;
-
 		if (res.find(todo.getUserName()) == res.end()) {
 
+			vector<Todo> data;
+			vector<Todo> fin;
 
 			UserTodo user = UserTodo(todo.getUserName(), data, fin);
 
 			res.insert({ todo.getUserName(), user});
 		}
 
-		res[todo.getUserName()].getData().push_back(todo);
-
-		Todo finishTodo = calculateFinish(todo);
-
-		if (finishTodo.getDueDate() != "-1") {
-			res[todo.getUserName()].getFinishData().push_back(finishTodo);
-		}
+		vector<Todo>& userData = (res[todo.getUserName()].getData());
+		userData.push_back(todo);
+		
 	}
-
 	return true;
 }
 Todo UserTodoConverterImpl::calculateFinish(Todo& data)

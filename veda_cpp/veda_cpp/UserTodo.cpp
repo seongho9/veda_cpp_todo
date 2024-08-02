@@ -23,11 +23,11 @@ string UserTodo::getUserName()
 	return this->userName;
 }
 
-vector<Todo> UserTodo::getData()
+vector<Todo>& UserTodo::getData()
 {
 	return this->data;
 }
-vector<Todo> UserTodo::getFinishData()
+vector<Todo>& UserTodo::getFinishData()
 {
 	return this->finishData;
 }

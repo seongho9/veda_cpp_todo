@@ -16,8 +16,8 @@ public:
 	UserTodo(const UserTodo& obj);
 
 	std::string getUserName();
-	std::vector<Todo> getData();
-	std::vector<Todo> getFinishData();
+	std::vector<Todo>& getData();
+	std::vector<Todo>& getFinishData();
 
 	void setUserName(std::string userName);
 	void setData(std::vector<Todo> data);
