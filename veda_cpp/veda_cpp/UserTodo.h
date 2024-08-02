@@ -19,7 +19,7 @@ public:
 	std::vector<Todo> getData();
 	std::vector<Todo> getFinishData();
 
-	void setUserName();
+	void setUserName(std::string userName);
 	void setData(std::vector<Todo> data);
 
 	/// <summary>
