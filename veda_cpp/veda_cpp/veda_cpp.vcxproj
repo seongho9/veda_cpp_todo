@@ -128,7 +128,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Todo.h" />
+    <ClInclude Include="TodoRepo.h" />
     <ClInclude Include="UserTodo.h" />
+    <ClInclude Include="UserTodoConverter.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="Todo.cpp" />
+    <ClCompile Include="TodoRepoFile.cpp" />
+    <ClCompile Include="UserTodo.cpp" />
+    <ClCompile Include="UserTodoConverterImpl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
