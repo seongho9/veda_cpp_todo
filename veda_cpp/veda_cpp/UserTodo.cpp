@@ -5,6 +5,10 @@
 #include <iostream>
 using namespace std;
 
+UserTodo::UserTodo()
+{
+
+}
 UserTodo::UserTodo(std::string userName, std::vector<Todo> data, std::vector<Todo> finish)
 {
 	this->userName = userName;
