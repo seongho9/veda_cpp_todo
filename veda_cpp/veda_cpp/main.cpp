@@ -1,15 +1,23 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Todo.h"
+#include "DataVisualConsole.h"
+
 
 int main()
 {
-	Todo t1;
-	t1.setId(1);
-	t1.setContent("sleeping");
-	t1.setUserName("hong");
-	t1.setInsertDate("2024-08-01");
-	t1.setDueDate("2024-12-25");
-	t1.setIsDone(true);
-	t1.setIsFin(false);
+	TodoRepo* repo = new TodoRepoFile();
+	UserTodoConverter* converter = new UserTodoConverterImpl(repo);
+	Datamanage* manager = new Datamanage(repo, converter);
+	DataVisualConsole* console = new DataVisualConsole(manager);
+
+	console->start();
+
+	delete console;
+	delete manager;
+	delete converter;
+	delete repo;
+
+	return 0;
 }
