@@ -20,8 +20,6 @@ class UserTodoConverterImpl : public UserTodoConverter
 {
 	TodoRepo* repo;
 
-	Todo calculateFinish(Todo& data);
-
 public:
 	UserTodoConverterImpl() = default;
 	UserTodoConverterImpl(TodoRepo* repo);

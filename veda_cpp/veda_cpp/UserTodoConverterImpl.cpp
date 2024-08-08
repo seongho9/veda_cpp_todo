@@ -52,27 +52,3 @@ bool UserTodoConverterImpl::load(map<std::string, UserTodo>& res)
 	}
 	return true;
 }
-Todo UserTodoConverterImpl::calculateFinish(Todo& data)
-{
-	time_t timer = time(NULL);
-	struct tm* t = localtime(&timer);
-
-
-	string due = data.getDueDate();
-	int y_idx = due.find_first_of('-');
-	int m_idx = due.find_last_of('-');
-
-	int year = stoi(due.substr(0, 4)) - t->tm_year + 1900;
-	int month = stoi(due.substr(y_idx + 1, m_idx - y_idx - 1)) - t->tm_mon + 1;
-	int day = stoi(due.substr(m_idx + 1, 2)) - t->tm_mday;
-
-	if (!((year < 0) || (month < 0) || (day < 0))) {
-		return data;
-	}
-	else {
-		Todo fail = Todo();
-		fail.setDueDate("-1");
-
-		return fail;
-	}
-}
