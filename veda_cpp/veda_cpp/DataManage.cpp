@@ -1,87 +1,81 @@
 #include "DataManage.h"
+#include <ctime>
 
 using namespace std;
 
-Datamanage::Datamanage(TodoRepo* storage, UserTodoConverter* convert)
+DataManageImpl::DataManageImpl(TodoRepo* todoRepo, UserTodoConverter* converter)
 {
-	this->todoStorage = storage;
-	this->converter = convert;
+	this->todoRepo = todoRepo;
+	this->converter = converter;
+
 	this->converter->load(this->userTodoData);
 }
-Datamanage::~Datamanage()
+DataManageImpl::~DataManageImpl()
 {
 	this->converter->save(this->userTodoData);
 }
-bool Datamanage::getUserData(vector<Todo>& res, string name)
+bool DataManageImpl::getCurrentData(vector<Todo>& res, string name)
 {
-	//if (userTodoData.find(name) == userTodoData.end()) {
-	//	//	입력한 데이터가 없는 경우
-	//	
-	//	vector<Todo> retval;
-	//	return retval;
-	//}
+	if (userTodoData.find(name) == userTodoData.end()) {
+		//	입력한 데이터가 없는 경우
+		return false;
+	}
 	UserTodo userData = userTodoData[name];
-	res = userData.getData();
+	res = userData.getCurrentData();
+
 	return true;
 }
 
-Todo Datamanage::addTodoData(string name, Todo data)
+bool DataManageImpl::getFinishedData(vector<Todo>& res, string name)
 {
 	if (userTodoData.find(name) == userTodoData.end()) {
-		vector<Todo> vec;
-		vector<Todo> fin;
-		UserTodo userData = UserTodo(name, vec, fin);
-		userData.getData().push_back(data);
+		//	입력한 데이터가 없는 경우
+		return false;
+	}
+	UserTodo userData = userTodoData[name];
+	res = userData.getFinishedData();
+
+	return true;
+}
+
+Todo DataManageImpl::addTodoData(string name, Todo data)
+{
+	time_t timer = time(NULL);
+	// YYYY-MM-DD
+	struct tm* currentTime = localtime(&timer);
+
+	// 처음추가하는 유저인 경우
+	if (userTodoData.find(name) == userTodoData.end()) {
+		vector<Todo> current;
+		vector<Todo> finish;
+
+		
+		UserTodo userData = UserTodo(0, name, current, finish);
+		data.setId(0);
+		userData.insertData(data);
+
 		userTodoData.insert({name, userData});
 
 		return data;
 	}
 
-	vector<Todo> todoData = userTodoData[name].getData();
-	todoData.push_back(data);
+	// 기존의 유저인 경우
+	unsigned int id = userTodoData[name].getId();
+	data.setId(id);
 
-	Todo saveData = todoStorage->save(data);
-
-	return saveData;
-}
-
-bool Datamanage::removeTodoData(string name, unsigned int id) {
-
-	vector<Todo> todos = userTodoData[name].getData();
+	userTodoData[name].insertData(data);
 	
 
-	for (int i = 0; i < todos.size(); i++) {
-		if (todos[i].getId() == id) {
-			todos.erase(todos.begin() + i);
-			unsigned int removedId = todoStorage->deleteById(id);
-
-			return (removedId == id) ? true : false;
-		}
-	}
-	return false;
+	return data;
 }
 
-//Todo Datamanage::modifiyTodoList(string name, Todo target_data, unsigned int id)
-//{
-//	Todo trash_val(0, "", "NO", " ", " ", false, false);
-//	vector<Todo> tmp = userTodoData[name].getData();
-//	for (int i = 0; i < tmp.size(); i++) {
-//		if (tmp[i].getId() == id) {
-//			Todo data = tmp[i];
-//			tmp[i] = target_data;
-//			return data;
-//		}
-//	}
-//	return trash_val;
-//}
+bool DataManageImpl::removeTodoData(string name, unsigned int id) {
 
-//void Datamanage::showAllUserTodoList(std::string name) 
-//{
-//	DataVisual show;
-//	vector<Todo> tmp = userTodoData[name].getData();
-//	for (auto it : tmp) {
-//		show.showTodo(it);
-//		
-//	}
-//
-//}
+	if (userTodoData.find(name) == userTodoData.end()) {
+		return false;
+	}
+	
+	userTodoData[name].removeData(id);
+
+	return true;
+}

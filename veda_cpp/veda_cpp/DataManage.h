@@ -7,19 +7,35 @@
 #include "Todo.h"
 #include "UserTodoConverter.h"
 
-class Datamanage {
-	std::map<std::string, UserTodo> userTodoData;
-	TodoRepo *todoStorage;
-	UserTodoConverter *converter;
+class DataManage 
+{
+	//std::map<std::string, UserTodo> userTodoData;
+	//TodoRepo *todoStorage;
+	//UserTodoConverter *converter;
 	
 public:
-	Datamanage() = default;
-	Datamanage(TodoRepo* storage, UserTodoConverter* convert);
-	~Datamanage();
-	bool getUserData(std::vector<Todo>& res, std::string name);
-	Todo addTodoData(std::string name, Todo data);
-	bool removeTodoData(std::string name, unsigned int id);
-	/*Todo modifiyTodoList(std::string name, Todo data, unsigned int id);*/
+	DataManage() = default;
+	virtual ~DataManage() = default;
+	virtual bool getCurrentData(std::vector<Todo>& res, std::string name) = 0;
+	virtual bool getFinishedData(std::vector<Todo>& res, std::string name) = 0;
+	virtual Todo addTodoData(std::string name, Todo data) = 0;
+	virtual bool removeTodoData(std::string name, unsigned int id) = 0;
 };
 
+class DataManageImpl : public DataManage
+{
+	std::map<std::string, UserTodo> userTodoData;
+	TodoRepo* todoRepo;
+	UserTodoConverter* converter;
+
+	DataManageImpl() = delete;
+	DataManageImpl(TodoRepo* todoRepo, UserTodoConverter* converter);
+
+	~DataManageImpl() = default;
+
+	bool getCurrentData(std::vector<Todo>& res, std::string name) override;
+	bool getFinishedData(std::vector<Todo>& res, std::string name) override;
+	Todo addTodoData(std::string name, Todo data) override;
+	bool removeTodoData(std::string name, unsigned int id) override;
+};
 #endif
