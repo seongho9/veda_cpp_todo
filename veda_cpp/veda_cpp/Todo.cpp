@@ -1,5 +1,4 @@
 #include "Todo.h"
-
 using namespace std;
 
 Todo::Todo(unsigned int id,
