@@ -2,6 +2,7 @@
 
 #include "UserTodoConverter.h"
 #include <ctime>
+#include <map>
 using namespace std;
 
 UserTodoConverterImpl::UserTodoConverterImpl(TodoRepo* repo)
@@ -14,9 +15,11 @@ unsigned int UserTodoConverterImpl::save(map<string, UserTodo> data)
 	unsigned int i = 0;
 	for (auto iter = data.begin(); iter != data.end(); iter++) {
 
-		vector<Todo> todo = iter->second.getData();
+		vector<Todo> currentTodo = iter->second.getCurrentData();
+		repo->saveArray(currentTodo);
 
-		repo->saveArray(todo);
+		vector<Todo>  finishTodo = iter->second.getFinishedData();
+		repo->saveArray(finishTodo);
 
 		i++;
 	}
@@ -33,22 +36,28 @@ bool UserTodoConverterImpl::load(map<std::string, UserTodo>& res)
 	if (data.empty()) {
 		return false;
 	}
+
 	
 	for (auto todo : data) {
 
+		//	map에 유저가 없으면 추가
 		if (res.find(todo.getUserName()) == res.end()) {
 
 			vector<Todo> data;
 			vector<Todo> fin;
-
-			UserTodo user = UserTodo(todo.getUserName(), data, fin);
+			
+			UserTodo user = UserTodo(0U, todo.getUserName(), data, fin);
 
 			res.insert({ todo.getUserName(), user});
 		}
 
-		vector<Todo>& userData = (res[todo.getUserName()].getData());
-		userData.push_back(todo);
-		
+		//	todo를 해당 UserTodo에 추가
+		res[todo.getUserName()].insertData(todo);
+
+	}
+	//	이미 끝난일 분류
+	for (auto userTodo : res) {
+		userTodo.second.convertData();
 	}
 	return true;
 }
