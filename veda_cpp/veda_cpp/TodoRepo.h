@@ -24,7 +24,8 @@ private:
 	std::mutex lock;
 public:
 
-	TodoRepoFile();
+	TodoRepoFile() = delete;
+	TodoRepoFile(std::string dir);
 	unsigned int saveArray(std::vector<Todo> data);
 	void load(std::vector<Todo>& res);
 

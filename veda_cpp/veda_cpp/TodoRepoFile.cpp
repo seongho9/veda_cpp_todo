@@ -2,11 +2,11 @@
 
 using namespace std;
 
-TodoRepoFile::TodoRepoFile()
+TodoRepoFile::TodoRepoFile(string dir)
 {
 	output = ofstream();
 	input = ifstream();
-	dir = "./data";
+	this->dir = dir;
 }
 
 
@@ -15,6 +15,12 @@ unsigned int TodoRepoFile::saveArray(vector<Todo> data)
 	int i = 0;
 	lock.lock();
 	output.open(dir, ios::binary | ios::app);
+
+	if (!output.is_open()) {
+		cerr << "output stream cannot open";
+
+		return 0;
+	}
 	output.seekp(ios::beg);
 	for (i = 0; i < data.size(); i++) {
 		output.write((char*)(&data[i]), sizeof(Todo));
@@ -29,6 +35,12 @@ void TodoRepoFile::load(vector<Todo>& res)
 {
 	lock.lock();
 	input.open(dir, ios::in | ios::binary );
+	
+	if (!input.is_open()) {
+		cerr << "input stream cannot open";
+
+		return;
+	}
 	if (!input.is_open()) {
 		output.open(dir, ios::out | ios::binary);
 		output.close();
